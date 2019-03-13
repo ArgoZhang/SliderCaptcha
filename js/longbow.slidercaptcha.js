@@ -58,7 +58,7 @@
     }
 
     function getRandomImgSrc(w, h) {
-        return '//picsum.photos/' + w + '/' + h + '/?image=' + getRandomNumberByRange(0, 1084);
+        return 'http://picsum.photos/' + w + '/' + h + '/?image=' + getRandomNumberByRange(0, 1084);
     }
 
     function draw(ctx, x, y, l, r, PI, operation) {
@@ -106,7 +106,8 @@
         sliderR: 9,     // 滑块半径
         loadingText: '正在加载中...',
         failedText: '再试一次',
-        barText: '向右滑动填充拼图'
+        barText: '向右滑动填充拼图',
+        repeatIcon: 'fa-redo'
     };
 
     function Plugin(option) {
@@ -135,7 +136,7 @@
         var canvas = createCanvas(this.options.width - 2, this.options.height) // 画布
         var block = canvas.cloneNode(true) // 滑块
         var sliderContainer = createElement('div', 'sliderContainer');
-        var refreshIcon = createElement('i', 'refreshIcon fa fa-repeat');
+        var refreshIcon = createElement('i', 'refreshIcon fa ' + this.options.repeatIcon);
         var sliderMask = createElement('div', 'sliderMask');
         var sliderbg = createElement('div', 'sliderbg');
         var slider = createElement('div', 'slider');
@@ -208,8 +209,9 @@
         });
 
         $(this.refreshIcon).on('click', function () {
+            that.text.text(that.options.barText);
             that.reset();
-            typeof that.onRefresh === 'function' && that.onRefresh()
+            if ($.isFunction(that.options.onRefresh)) that.options.onRefresh.call(that.$element);
         });
 
         var originX, originY, trail = [],
@@ -259,13 +261,17 @@
                     that.reset();
                 }, 1000)
             }
-        }
+        };
+
         this.slider.addEventListener('mousedown', handleDragStart);
         this.slider.addEventListener('touchstart', handleDragStart);
         document.addEventListener('mousemove', handleDragMove);
         document.addEventListener('touchmove', handleDragMove);
         document.addEventListener('mouseup', handleDragEnd);
         document.addEventListener('touchend', handleDragEnd);
+
+        document.addEventListener('mousedown', function() { return false; });
+        document.addEventListener('touchstart', function() { return false; });
     };
 
     _proto.verify = function () {
