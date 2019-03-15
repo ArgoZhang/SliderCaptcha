@@ -1,37 +1,125 @@
-# SliderCaptcha
+## 滑块式验证码
 
-#### 介绍
-滑块式验证码
+用户拖动滑块完成时完成校验，支持PC端及移动端。并可以在后台保存用户校验过程的时间，精度，滑动轨迹等信息。
 
-#### 软件架构
-软件架构说明
+在线演示：http://longbowenterprise.gitee.io/slidercaptcha/
 
+## 效果图
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0316/003740_c5175e6b_554725.png "SliderCaptcha.png")
 
-#### 安装教程
+## 快速开始
 
-1. xxxx
-2. xxxx
-3. xxxx
+### 组件依赖 jQuery bootstrap font-awesome
 
-#### 使用说明
+### CSS
 
-1. xxxx
-2. xxxx
-3. xxxx
+```html
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css">
+<link href="./src/slidercaptcha.css">
+```
+将引入样式表的 &lt;link&gt; 标签复制并粘贴到 &lt;head&gt; 中，并放在所有其他样式表之前。
 
-#### 参与贡献
+### JS
 
-1. Fork 本仓库
+```html
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="./src/longbow.slidercaptcha.js"></script>
+```
+
+将引入脚本的 &lt;script&gt; 标签复制并粘贴到 &lt;body&gt; 最后面。
+
+## 用法
+
+添加网页Html元素
+
+```html
+<div id="captcha"></div>
+```
+
+## API
+
+### 通过 javascript 初始化控件
+
+```html
+<div id="captcha"></div>
+<script>
+    $('#captcha').sliderCaptcha();
+</script>   
+```
+
+### Options
+
+可以根据自己需要设置宽度与高度等配置
+
+```html
+<div id="captcha"></div>
+<script>
+    $('#captcha').sliderCaptcha({
+        width: 280,
+        height: 150,
+        sliderL: 42,
+        sliderR: 9,
+        loadingText: '正在加载中...',
+        failedText: '再试一次',
+        barText: '向右滑动填充拼图',
+        repeatIcon: 'fa fa-redo'
+        setSrc: function () {
+            
+        },
+        onSuccess: function () {
+            
+        },
+        onFail: function () {
+
+        },
+        onRefresh: function () {
+        
+        }
+    });
+</script>   
+```
+
+名称 | 类型 | 默认值 | 说明 |
+---|---|---|---
+width | integer | 280 | 背景图片宽度
+height | integer | 150 | 背景图标高度
+sliderL | integer | 42 | 拼图宽度
+sliderR | integer | 9 | 拼图突出半径
+loadingText | string | "正在加载中..." | 图片加载时显示的文本信息
+failedText | string | "再试一次" | 验证失败时显示的文本信息
+barText | integer | "向右滑动填充拼图" | 拖动滑块准备拖动时显示的文本信息
+repeatIcon | string | "fa fa-redo" | 重新加载图标 需引用 font-awesome
+setSrc | function | "https://picsum.photos/{width}/{height}/?image=random" | 设置图片加载路径
+onSuccess | function | *null* | 验证通过时回调此函数
+onFail | function | *null* | 验证失败时回调此函数
+onRefresh | function | *null* | 点击重新加载图标时回调此函数
+
+### 方法
+
+```html
+<div id="captcha"></div>
+<script>
+    $('#captcha').sliderCaptcha();
+    $('#captcha').sliderCaptcha('reset');
+</script>   
+```
+
+Method | Example | Description
+---|---|---
+init | $('#captcha').sliderCaptcha('reset') | 重新初始化控件
+reset | $('#captcha').sliderCaptcha('reset') | 重置控件
+verify | $('#captcha').sliderCaptcha('verify') | 验证结果
+
+## 事件
+无
+
+## Issue
+请前往 [Issue](../../issues) 页面添加问题
+
+## 参与贡献
+
+1. Fork 本项目
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
