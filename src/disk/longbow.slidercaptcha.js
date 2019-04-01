@@ -19,7 +19,8 @@
         loadingText: '正在加载中...',
         failedText: '再试一次',
         barText: '向右滑动填充拼图',
-        repeatIcon: 'fa fa-repeat'
+        repeatIcon: 'fa fa-repeat',
+        maxLoadCount: 3
     };
 
     function Plugin(option) {
@@ -126,8 +127,12 @@
         var getRandomNumberByRange = function (start, end) {
             return Math.round(Math.random() * (end - start) + start);
         };
+        var localImg = function () {
+            return '../images/Pic' + Math.round(Math.random() * 4) + '.jpg';
+        };
         var img = new Image();
         img.crossOrigin = "Anonymous";
+        var loadCount = 0;
         img.onload = function () {
             // 随机创建滑块的位置
             that.x = getRandomNumberByRange(L + 10, that.options.width - (L + 10));
@@ -144,12 +149,23 @@
             that.text.text(that.text.attr('data-text'));
         };
         img.onerror = function () {
-            img.setSrc();
+            loadCount++;
+            if (window.location.protocol === 'file:') {
+                loadCount = that.options.maxLoadCount;
+                console.error("can't load pic resource file from File protocal. Please try http or https");
+            }
+            if (loadCount >= that.options.maxLoadCount) {
+                that.text.text('加载失败').addClass('text-danger');
+                return;
+            }
+            img.src = localImg();
         }
         img.setSrc = function () {
             var src = '';
+            loadCount = 0;
+            that.text.removeClass('text-danger');
             if ($.isFunction(that.options.setSrc)) src = that.options.setSrc();
-            if(!src || src === '') src = 'https://picsum.photos/' + that.options.width + '/' + that.options.height + '/?image=' + Math.round(Math.random() * 20);
+            if (!src || src === '') src = 'https://picsum.photos/' + that.options.width + '/' + that.options.height + '/?image=' + Math.round(Math.random() * 20);
             if (isIE) { // IE浏览器无法通过img.crossOrigin跨域，使用ajax获取图片blob然后转为dataURL显示
                 var xhr = new XMLHttpRequest()
                 xhr.onloadend = function (e) {
@@ -192,6 +208,7 @@
             isMouseDown = false
 
         var handleDragStart = function (e) {
+            if (that.text.hasClass('text-danger')) return;
             originX = e.clientX || e.touches[0].clientX;
             originY = e.clientY || e.touches[0].clientY;
             isMouseDown = true;
