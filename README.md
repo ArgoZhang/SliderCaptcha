@@ -1,11 +1,15 @@
-## 滑块式验证码
+﻿## 滑块式验证码
 
-用户拖动滑块完成时完成校验，支持PC端及移动端。并可以在后台保存用户校验过程的时间，精度，滑动轨迹等信息。
+用户通过拖动滑块行为来完成校验，支持PC端及移动端。可以将用户拖动行为的时间、精度，滑动轨迹等信息到服务器，然后进行后台算法验证。
 
-在线演示：http://longbowenterprise.gitee.io/slidercaptcha/
+## 在线演示
+单页面演示：http://longbowenterprise.gitee.io/slidercaptcha/  
+项目内演示：http://argo.zylweb.cn/ (本项目为开源后台管理框架 [[BootstrapAdmin](https://gitee.com/LongbowEnterprise/BootstrapAdmin)])  
+**输入三次错误密码后第四次出现滑块式行为验证码**  
 
 ## 效果图
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0316/003740_c5175e6b_554725.png "SliderCaptcha.png")
+![输入图片说明](https://gitee.com/uploads/images/2019/0410/124955_f9b6d54c_554725.png "Untitled.png")
 
 ## 快速开始
 
@@ -90,7 +94,7 @@ loadingText | string | "正在加载中..." | 图片加载时显示的文本信�
 failedText | string | "再试一次" | 验证失败时显示的文本信息
 barText | integer | "向右滑动填充拼图" | 拖动滑块准备拖动时显示的文本信息
 repeatIcon | string | "fa fa-redo" | 重新加载图标 需引用 font-awesome
-setSrc | function | "https://picsum.photos/{width}/{height}/?image=random" | 设置图片加载路径
+setSrc | function | "https://picsum.photos/?image=random" | 设置图片加载路径
 onSuccess | function | *null* | 验证通过时回调此函数
 onFail | function | *null* | 验证失败时回调此函数
 onRefresh | function | *null* | 点击重新加载图标时回调此函数
@@ -107,7 +111,7 @@ onRefresh | function | *null* | 点击重新加载图标时回调此函数
 
 Method | Example | Description
 ---|---|---
-init | $('#captcha').sliderCaptcha('reset') | 重新初始化控件
+init | $('#captcha').sliderCaptcha('init') | 重新初始化控件
 reset | $('#captcha').sliderCaptcha('reset') | 重置控件
 verify | $('#captcha').sliderCaptcha('verify') | 验证结果
 
