@@ -16,6 +16,7 @@
         PI: Math.PI,
         sliderL: 42,    // 滑块边长
         sliderR: 9,     // 滑块半径
+        offset: 5,      // 容错偏差
         loadingText: '正在加载中...',
         failedText: '再试一次',
         barText: '向右滑动填充拼图',
@@ -86,7 +87,7 @@
         Object.assign(this, {
             canvas,
             block,
-            sliderContainer : $(sliderContainer),
+            sliderContainer: $(sliderContainer),
             refreshIcon,
             slider,
             sliderMask,
@@ -250,7 +251,7 @@
                 setTimeout(() => {
                     that.text.text(that.options.failedText);
                     that.reset();
-                }, 1000)
+                }, 1000);
             }
         };
 
@@ -261,8 +262,8 @@
         document.addEventListener('mouseup', handleDragEnd);
         document.addEventListener('touchend', handleDragEnd);
 
-        document.addEventListener('mousedown', function() { return false; });
-        document.addEventListener('touchstart', function() { return false; });
+        document.addEventListener('mousedown', function () { return false; });
+        document.addEventListener('touchstart', function () { return false; });
     };
 
     _proto.verify = function () {
@@ -274,7 +275,7 @@
         var stddev = Math.sqrt(deviations.map(square).reduce(sum) / arr.length);
         var left = parseInt(this.block.style.left);
         return {
-            spliced: Math.abs(left - this.x) < 4,
+            spliced: Math.abs(left - this.x) < this.options.offset,
             verified: stddev !== 0, // 简单验证下拖动轨迹，为零时表示Y轴上下没有波动，可能非人为操作
         }
     };
