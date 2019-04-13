@@ -1,4 +1,4 @@
-(function ($) {
+﻿(function ($) {
     'use strict';
 
     var SliderCaptcha = function (element, options) {
@@ -21,7 +21,10 @@
         failedText: '再试一次',
         barText: '向右滑动填充拼图',
         repeatIcon: 'fa fa-repeat',
-        maxLoadCount: 3
+        maxLoadCount: 3,
+        localImages: function () {
+            return 'images/Pic' + Math.round(Math.random() * 4) + '.jpg';
+        }
     };
 
     function Plugin(option) {
@@ -128,9 +131,6 @@
         var getRandomNumberByRange = function (start, end) {
             return Math.round(Math.random() * (end - start) + start);
         };
-        var localImg = function () {
-            return '../images/Pic' + Math.round(Math.random() * 4) + '.jpg';
-        };
         var img = new Image();
         img.crossOrigin = "Anonymous";
         var loadCount = 0;
@@ -159,8 +159,8 @@
                 that.text.text('加载失败').addClass('text-danger');
                 return;
             }
-            img.src = localImg();
-        }
+            img.src = that.options.localImages();
+        };
         img.setSrc = function () {
             var src = '';
             loadCount = 0;
