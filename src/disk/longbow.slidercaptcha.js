@@ -33,7 +33,7 @@
             var data = $this.data('lgb.SliderCaptcha');
             var options = typeof option === 'object' && option;
 
-            if (!data && /init|reset|verify/.test(option)) return;
+            if (data && !/reset/.test(option)) return;
             if (!data) $this.data('lgb.SliderCaptcha', data = new SliderCaptcha(this, options));
             if (typeof option === 'string') data[option]();
         });

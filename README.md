@@ -100,9 +100,7 @@ setSrc | function | "https://picsum.photos/?image=random" | 设置图片加载�
 onSuccess | function | *null* | 验证通过时回调此函数
 onFail | function | *null* | 验证失败时回调此函数
 onRefresh | function | *null* | 点击重新加载图标时回调此函数
-localImages | function | localImanges: function () {
-
-} | 图床图片加载失败时调用此方法返回本地图片路径
+localImages | function | function () { return 'images/Pic' + Math.round(Math.random() * 4) + '.jpg'; } | 图床图片加载失败时调用此方法返回本地图片路径
 
 ### 方法
 
@@ -116,9 +114,7 @@ localImages | function | localImanges: function () {
 
 Method | Example | Description
 ---|---|---
-init | $('#captcha').sliderCaptcha('init') | 重新初始化控件
 reset | $('#captcha').sliderCaptcha('reset') | 重置控件
-verify | $('#captcha').sliderCaptcha('verify') | 验证结果
 
 ## 事件
 无
