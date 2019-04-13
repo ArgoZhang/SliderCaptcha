@@ -64,6 +64,7 @@
         height: 150,
         sliderL: 42,
         sliderR: 9,
+        offset: 5,
         loadingText: '正在加载中...',
         failedText: '再试一次',
         barText: '向右滑动填充拼图',
@@ -90,6 +91,7 @@ width | integer | 280 | 背景图片宽度
 height | integer | 150 | 背景图标高度
 sliderL | integer | 42 | 拼图宽度
 sliderR | integer | 9 | 拼图突出半径
+offset | integer | 5 | 验证容错偏差值 默认5个像素偏差即认为验证通过
 loadingText | string | "正在加载中..." | 图片加载时显示的文本信息
 failedText | string | "再试一次" | 验证失败时显示的文本信息
 barText | integer | "向右滑动填充拼图" | 拖动滑块准备拖动时显示的文本信息
