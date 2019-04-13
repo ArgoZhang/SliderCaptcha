@@ -7,7 +7,7 @@
     <title>Slider Captcha Demo</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css" rel="stylesheet">
-    <link href="./slidercaptcha.css" rel="stylesheet" />
+    <link href="./disk/slidercaptcha.css" rel="stylesheet" />
     <style>
         .slidercaptcha {
             margin: 0 auto;
@@ -51,12 +51,12 @@
         </div>
     </div>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./longbow.slidercaptcha.js"></script>
+    <script src="./disk/longbow.slidercaptcha.js"></script>
     <script>
         $('#captcha').sliderCaptcha({
             repeatIcon: 'fa fa-redo',
             setSrc: function () {
-                return 'https://longbow-1258823021.cos.ap-shanghai.myqcloud.com/pic/280/150/Pic' + Math.round(Math.random() * 136) + '.jpg';
+                return 'http://images.sdgxgz.com/Pic' + Math.round(Math.random() * 136) + '.jpg';
             },
             onSuccess: function () {
                 window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';
