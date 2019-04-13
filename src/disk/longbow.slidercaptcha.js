@@ -44,9 +44,9 @@
 
     var _proto = SliderCaptcha.prototype;
     _proto.init = function () {
-        this.initDOM()
-        this.initImg()
-        this.bindEvents()
+        this.initDOM();
+        this.initImg();
+        this.bindEvents();
     };
 
     _proto.initDOM = function () {
