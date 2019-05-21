@@ -87,18 +87,25 @@
         sliderContainer.appendChild(text);
         el.append($(sliderContainer));
 
-        Object.assign(this, {
-            canvas,
-            block,
+        var _canvas = {
+            canvas: canvas,
+            block: block,
             sliderContainer: $(sliderContainer),
-            refreshIcon,
-            slider,
-            sliderMask,
-            sliderIcon,
+            refreshIcon: refreshIcon,
+            slider: slider,
+            sliderMask: sliderMask,
+            sliderIcon: sliderIcon,
             text: $(text),
             canvasCtx: canvas.getContext('2d'),
             blockCtx: block.getContext('2d')
-        });
+        };
+
+        if ($.isFunction(Object.assign)) {
+            Object.assign(this, _canvas);
+        }
+        else {
+            $.extend(this, _canvas);
+        }
     };
 
     _proto.initImg = function () {
@@ -239,17 +246,14 @@
             if (eventX === originX) return false;
             that.sliderContainer.removeClass('sliderContainer_active');
             that.trail = trail;
-            var {
-                spliced,
-                verified
-            } = that.verify();
-            if (spliced && verified) {
+            var data = that.verify();
+            if (data.spliced && data.verified) {
                 that.sliderContainer.addClass('sliderContainer_success');
                 if ($.isFunction(that.options.onSuccess)) that.options.onSuccess.call(that.$element);
             } else {
                 that.sliderContainer.addClass('sliderContainer_fail');
                 if ($.isFunction(that.options.onFail)) that.options.onFail.call(that.$element);
-                setTimeout(() => {
+                setTimeout(function () {
                     that.text.text(that.options.failedText);
                     that.reset();
                 }, 1000);
@@ -266,7 +270,7 @@
         document.addEventListener('mousedown', function () { return false; });
         document.addEventListener('touchstart', function () { return false; });
         document.addEventListener('swipe', function () { return false; });
-   };
+    };
 
     _proto.verify = function () {
         var sum = function (x, y) { return x + y; };
