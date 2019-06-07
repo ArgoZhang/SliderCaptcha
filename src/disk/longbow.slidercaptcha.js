@@ -132,7 +132,7 @@
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
             ctx.stroke();
             ctx[operation]();
-            ctx.globalCompositeOperation = isIE ? 'xor' : 'overlay';
+            ctx.globalCompositeOperation = isIE ? 'xor' : 'destination-over';
         };
 
         var getRandomNumberByRange = function (start, end) {
