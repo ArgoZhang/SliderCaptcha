@@ -105,6 +105,8 @@ onSuccess | function | *null* | 验证通过时回调此函数
 onFail | function | *null* | 验证失败时回调此函数
 onRefresh | function | *null* | 点击重新加载图标时回调此函数
 localImages | function | function () { return 'images/Pic' + Math.round(Math.random() * 4) + '.jpg'; } | 图床图片加载失败时调用此方法返回本地图片路径
+remoteUrl | string | null | 服务器端验证请求地址，请求方式默认为 post 方式
+verify	| function | function (arr, url) { return true; }	| 服务器端验证方法 arr 为客户端拖动滑块轨迹，url 为服务器端请求地址，返回值为布尔值
 
 ### 方法
 
