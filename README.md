@@ -124,6 +124,75 @@ None
 ## Issue
 Please go to [Issue](../../issues) page to create issue
 
+## Q&A
+### Verify On Server Side
+
+1. Client code  
+```js
+verify: function (arr, url) {
+    var ret = false;
+    $.ajax({
+        url: url,
+        data: JSON.stringify(arr),
+        async: false,
+        cache: false,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (result) {
+            ret = result;
+        }
+    });
+    return ret;
+}
+```
+
+Parameter | Type | Default | Descript |
+---|---|---|---
+arr | array | object | trails of user dragging slider  | 
+url | string | remoteUrl | option.remoteUrl |
+
+sample code
+```js
+$('#captcha').sliderCaptcha({
+    repeatIcon: 'fa fa-redo',
+    setSrc: function () {
+        return 'https://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
+    },
+    onSuccess: function () {
+        window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';
+    },
+    remoteUrl: "api/Captcha"
+});
+```
+
+2. Server Code（NETCore WebApi）
+```csharp
+/// <summary>
+/// slider verify web api
+/// </summary>
+[Route("api/[controller]")]
+[ApiController]
+[AllowAnonymous]
+public class CaptchaController : ControllerBase
+{
+    /// <summary>
+    /// 服务器端滑块验证方法
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public bool Post([FromBody]List<int> datas)
+    {
+        var sum = datas.Sum();
+        var avg = sum * 1.0 / datas.Count;
+        var stddev = datas.Select(v => Math.Pow(v - avg, 2)).Sum() / datas.Count;
+        return stddev != 0;
+    }
+}
+```
+
+[linked issue](https://gitee.com/LongbowEnterprise/SliderCaptcha/issues/I110MF?from=project-issue)  
+
 ## Contribution
 
 1. Fork this project

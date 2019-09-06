@@ -8,7 +8,7 @@
 
 ## 在线演示
 单页面演示：http://longbowenterprise.gitee.io/slidercaptcha/  
-项目内演示：http://argo.zylweb.cn/ (本项目为开源后台管理框架 [[BootstrapAdmin](https://gitee.com/LongbowEnterprise/BootstrapAdmin)])  
+项目内演示：http://ba.sdgxgz.com/ (本项目为开源后台管理框架 [[BootstrapAdmin](https://gitee.com/LongbowEnterprise/BootstrapAdmin)])  
 **输入三次错误密码后第四次出现滑块式行为验证码**  
 
 ## 效果图
@@ -127,6 +127,78 @@ reset | $('#captcha').sliderCaptcha('reset') | 重置控件
 
 ## Issue
 请前往 [Issue](../../issues) 页面添加问题
+
+## 常见问题
+### 服务器端认证
+
+1. 客户端代码  
+控件配置信息中有 remoteUrl 和 verify 两个配置项，合理正确的设置这两个配置项即可达到想要的服务器端认证逻辑  
+remoteUrl 默认值为 null 表示未启用服务器端认证方式，设置请求的 webapi 地址后启用服务器端认证方法  
+控件默认请求服务器端方法如下，可适当进行更改
+```js
+verify: function (arr, url) {
+    var ret = false;
+    $.ajax({
+        url: url,
+        data: JSON.stringify(arr),
+        async: false,
+        cache: false,
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function (result) {
+            ret = result;
+        }
+    });
+    return ret;
+}
+```
+
+参数 | 类型 | 默认值 | 说明 |
+---|---|---|---
+arr | array | object | 客户端拖动滑块轨迹数组 | 
+url | string | remoteUrl | 配置项中的 remoteUrl 参数值 |
+
+完整示例代码  
+```js
+$('#captcha').sliderCaptcha({
+    repeatIcon: 'fa fa-redo',
+    setSrc: function () {
+        return 'https://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
+    },
+    onSuccess: function () {
+        window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';
+    },
+    remoteUrl: "api/Captcha"
+});
+```
+
+2. 服务器端代码（NETCore WebApi）
+```csharp
+/// <summary>
+/// 滑块服务器端验证方法
+/// </summary>
+[Route("api/[controller]")]
+[ApiController]
+[AllowAnonymous]
+public class CaptchaController : ControllerBase
+{
+    /// <summary>
+    /// 服务器端滑块验证方法
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost]
+    public bool Post([FromBody]List<int> datas)
+    {
+        var sum = datas.Sum();
+        var avg = sum * 1.0 / datas.Count;
+        var stddev = datas.Select(v => Math.Pow(v - avg, 2)).Sum() / datas.Count;
+        return stddev != 0;
+    }
+}
+```
+
+[相关问题](https://gitee.com/LongbowEnterprise/SliderCaptcha/issues/I110MF?from=project-issue)  
 
 ## 参与贡献
 
