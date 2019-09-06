@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Slider Captcha Demo</title>
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css" rel="stylesheet">
-    <link href="./disk/slidercaptcha.css" rel="stylesheet" />
+    <link href="lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="disk/slidercaptcha.css" rel="stylesheet" />
     <style>
         .slidercaptcha {
             margin: 0 auto;
@@ -18,25 +19,26 @@
             margin-top: 40px;
         }
 
-            .slidercaptcha .card-body {
-                padding: 1rem;
-            }
+        .slidercaptcha .card-body {
+            padding: 1rem;
+        }
 
-            .slidercaptcha canvas:first-child {
-                border-radius: 4px;
-                border: 1px solid #e6e8eb;
-            }
+        .slidercaptcha canvas:first-child {
+            border-radius: 4px;
+            border: 1px solid #e6e8eb;
+        }
 
-            .slidercaptcha.card .card-header {
-                background-image: none;
-                background-color: rgba(0, 0, 0, 0.03);
-            }
+        .slidercaptcha.card .card-header {
+            background-image: none;
+            background-color: rgba(0, 0, 0, 0.03);
+        }
 
-            .refreshIcon {
-                top: -54px;
-            }
+        .refreshIcon {
+            top: -54px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="form-row">
@@ -45,23 +47,27 @@
                     <div class="card-header">
                         <span>请完成安全验证</span>
                     </div>
-                    <div class="card-body"><div id="captcha"></div></div>
+                    <div class="card-body">
+                        <div id="captcha"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./disk/longbow.slidercaptcha.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="disk/longbow.slidercaptcha.js"></script>
     <script>
         $('#captcha').sliderCaptcha({
             repeatIcon: 'fa fa-redo',
             setSrc: function () {
-                return 'http://images.sdgxgz.com/Pic' + Math.round(Math.random() * 136) + '.jpg';
+                return 'http://114.67.77.1/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
             },
             onSuccess: function () {
                 window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';
             }
         });
-    </script>    
+    </script>
 </body>
+
 </html>
