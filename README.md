@@ -1,4 +1,4 @@
-﻿## Slider Captcha
+## Slider Captcha
 
 <span>English</span> | <a href="README.zh-CN.md">中文</a>
 
@@ -126,8 +126,8 @@ Please go to [Issue](../../issues) page to create issue
 
 ## Q&A
 ### Verify On Server Side
-
-1. Client code  
+#### Client Code Example
+##### 1. JavaScript
 ```js
 verify: function (arr, url) {
     var ret = false;
@@ -166,7 +166,8 @@ $('#captcha').sliderCaptcha({
 });
 ```
 
-2. Server Code（NETCore WebApi）
+#### Server Code Example
+##### 1. NETCore WebApi
 ```csharp
 /// <summary>
 /// slider verify web api
@@ -188,6 +189,33 @@ public class CaptchaController : ControllerBase
         var stddev = datas.Select(v => Math.Pow(v - avg, 2)).Sum() / datas.Count;
         return stddev != 0;
     }
+}
+```
+
+##### 2. JAVA SpringBoot
+You may have precision problems, but you can use BigDecimal optimization
+```java
+@RestController
+@RequestMapping("/sliderCaptcha")
+public class SliderCaptchaController {
+
+	@PostMapping("/isVerify")
+	public boolean isVerify(List<Integer> datas) {
+		int sum = 0;
+		for (Integer data : datas) {
+			sum += data;
+		}
+		double avg = sum * 1.0 / datas.size();
+		
+		double sum2 = 0.0;
+		for (Integer data : datas) {
+			sum2 += Math.pow(data - avg, 2);
+		}
+		
+		double stddev = sum2 / datas.size();
+		return stddev != 0;
+	}
+	
 }
 ```
 
