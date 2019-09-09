@@ -126,8 +126,8 @@ Please go to [Issue](../../issues) page to create issue
 
 ## Q&A
 ### Verify On Server Side
-
-1. Client code  
+#### Client Code Example
+##### 1. JavaScript
 ```js
 verify: function (arr, url) {
     var ret = false;
@@ -166,7 +166,8 @@ $('#captcha').sliderCaptcha({
 });
 ```
 
-2. Server Code（NETCore WebApi）
+#### Server Code Example
+##### 1. NETCore WebApi
 ```csharp
 /// <summary>
 /// slider verify web api
@@ -191,7 +192,8 @@ public class CaptchaController : ControllerBase
 }
 ```
 
-3. Server Code（JAVA SpringBoot）：You may have precision problems, but you can use BigDecimal optimization
+##### 2. JAVA SpringBoot
+You may have precision problems, but you can use BigDecimal optimization
 ```java
 @RestController
 @RequestMapping("/sliderCaptcha")

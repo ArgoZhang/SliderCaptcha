@@ -130,8 +130,8 @@ reset | $('#captcha').sliderCaptcha('reset') | 重置控件
 
 ## 常见问题
 ### 服务器端认证
-
-1. 客户端代码  
+#### 客户端代码示例
+##### 1. JavaScript
 控件配置信息中有 remoteUrl 和 verify 两个配置项，合理正确的设置这两个配置项即可达到想要的服务器端认证逻辑  
 remoteUrl 默认值为 null 表示未启用服务器端认证方式，设置请求的 webapi 地址后启用服务器端认证方法  
 控件默认请求服务器端方法如下，可适当进行更改
@@ -173,7 +173,8 @@ $('#captcha').sliderCaptcha({
 });
 ```
 
-2. 服务器端代码（NETCore WebApi）
+#### 服务器端代码示例
+##### 1. NETCore WebApi
 ```csharp
 /// <summary>
 /// 滑块服务器端验证方法
@@ -198,7 +199,8 @@ public class CaptchaController : ControllerBase
 }
 ```
 
-3. 服务器端代码（JAVA SpringBoot）：可能会存在精度问题，采用BigDecimal计算即可
+##### 2. JAVA SpringBoot
+可能会存在精度问题，采用BigDecimal计算即可
 ```java
 @RestController
 @RequestMapping("/sliderCaptcha")
