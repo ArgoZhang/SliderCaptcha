@@ -198,6 +198,32 @@ public class CaptchaController : ControllerBase
 }
 ```
 
+3. 服务器端代码（JAVA SpringBoot）：可能会存在精度问题，采用BigDecimal计算即可
+```java
+@RestController
+@RequestMapping("/sliderCaptcha")
+public class SliderCaptchaController {
+
+	@PostMapping("/isVerify")
+	public boolean isVerify(List<Integer> datas) {
+		int sum = 0;
+		for (Integer data : datas) {
+			sum += data;
+		}
+		double avg = sum * 1.0 / datas.size();
+		
+		double sum2 = 0.0;
+		for (Integer data : datas) {
+			sum2 += Math.pow(data - avg, 2);
+		}
+		
+		double stddev = sum2 / datas.size();
+		return stddev != 0;
+	}
+	
+}
+```
+
 [相关问题](https://gitee.com/LongbowEnterprise/SliderCaptcha/issues/I110MF?from=project-issue)  
 
 ## 参与贡献
