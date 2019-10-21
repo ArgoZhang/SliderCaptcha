@@ -69,7 +69,7 @@ Place the following `<script>`s near the end of your pages, right before the clo
         loadingText: 'Loading...',
         failedText: 'Try again',
         barText: 'Slide right to fill',
-        repeatIcon: 'fa fa-redo'
+        repeatIcon: 'fa fa-redo',
         setSrc: function () {
             
         },

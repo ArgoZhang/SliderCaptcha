@@ -72,7 +72,7 @@
         loadingText: '正在加载中...',
         failedText: '再试一次',
         barText: '向右滑动填充拼图',
-        repeatIcon: 'fa fa-redo'
+        repeatIcon: 'fa fa-redo',
         setSrc: function () {
             
         },
