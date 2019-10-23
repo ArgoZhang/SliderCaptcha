@@ -1,4 +1,4 @@
-## 滑块式验证码
+﻿## 滑块式验证码
 
 <a href="README.md">English</a> | <span>中文</span>
 
@@ -128,10 +128,9 @@ reset | $('#captcha').sliderCaptcha('reset') | 重置控件
 ## Issue
 请前往 [Issue](../../issues) 页面添加问题
 
-## 常见问题
-### 服务器端认证
-#### 客户端代码示例
-##### 1. JavaScript
+## 服务器端认证
+### 客户端代码示例
+#### 1. JavaScript
 控件配置信息中有 remoteUrl 和 verify 两个配置项，合理正确的设置这两个配置项即可达到想要的服务器端认证逻辑  
 remoteUrl 默认值为 null 表示未启用服务器端认证方式，设置请求的 webapi 地址后启用服务器端认证方法  
 控件默认请求服务器端方法如下，可适当进行更改
@@ -173,8 +172,8 @@ $('#captcha').sliderCaptcha({
 });
 ```
 
-#### 服务器端代码示例
-##### 1. NETCore WebApi
+### 服务器端代码示例
+#### 1. NETCore WebApi
 ```csharp
 /// <summary>
 /// 滑块服务器端验证方法
@@ -199,7 +198,7 @@ public class CaptchaController : ControllerBase
 }
 ```
 
-##### 2. JAVA SpringBoot
+#### 2. JAVA SpringBoot
 可能会存在精度问题，采用BigDecimal计算即可
 ```java
 @RestController
@@ -225,6 +224,12 @@ public class SliderCaptchaController {
 	
 }
 ```
+
+## 常见问题
+
+### 服务端验证的返回结果怎么一直都是true  
+
+示例代码中演示的是前端提交用户滑动轨迹到服务器端进行了 Y 轴的平方差校验，为零时才返回 false，否则返回 true，为 true 表示 Y 轴有偏移，简单的认为此操作是人为操作，因为人手拖动过程中的抖动 Y 轴理论上是不可能没有偏移的。因此依据此值进行是否是人为拖动滑块。
 
 [相关问题](https://gitee.com/LongbowEnterprise/SliderCaptcha/issues/I110MF?from=project-issue)  
 

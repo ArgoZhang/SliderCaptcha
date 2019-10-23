@@ -1,4 +1,4 @@
-## Slider Captcha
+﻿## Slider Captcha
 
 <span>English</span> | <a href="README.zh-CN.md">中文</a>
 
@@ -124,10 +124,9 @@ None
 ## Issue
 Please go to [Issue](../../issues) page to create issue
 
-## Q&A
-### Verify On Server Side
-#### Client Code Example
-##### 1. JavaScript
+## Verify On Server Side
+### Client Code Example
+#### 1. JavaScript
 ```js
 verify: function (arr, url) {
     var ret = false;
@@ -166,8 +165,8 @@ $('#captcha').sliderCaptcha({
 });
 ```
 
-#### Server Code Example
-##### 1. NETCore WebApi
+### Server Code Example
+#### 1. NETCore WebApi
 ```csharp
 /// <summary>
 /// slider verify web api
@@ -192,7 +191,7 @@ public class CaptchaController : ControllerBase
 }
 ```
 
-##### 2. JAVA SpringBoot
+#### 2. JAVA SpringBoot
 You may have precision problems, but you can use BigDecimal optimization
 ```java
 @RestController
@@ -218,6 +217,8 @@ public class SliderCaptchaController {
 	
 }
 ```
+
+## Q&A
 
 [linked issue](https://gitee.com/LongbowEnterprise/SliderCaptcha/issues/I110MF?from=project-issue)  
 
