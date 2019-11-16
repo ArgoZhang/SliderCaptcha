@@ -58,13 +58,16 @@
     <script src="lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
     <script src="disk/longbow.slidercaptcha.js"></script>
     <script>
-        $('#captcha').sliderCaptcha({
+        var $captcha = $('#captcha').sliderCaptcha({
             repeatIcon: 'fa fa-redo',
             setSrc: function () {
                 return 'http://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
             },
             onSuccess: function () {
-                window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';
+                var handler = setTimeout(function () {
+                    window.clearTimeout(handler);
+                    $captcha.sliderCaptcha('reset');
+                }, 500);
             }
         });
     </script>
