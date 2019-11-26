@@ -56,8 +56,8 @@
             repeatIcon: 'fa fa-redo',
             setSrc: function () {
                 return 'http://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
-            },
-            onSuccess: function () {
+            },			
+            onSuccess: function () {  //成功事件
                 var handler = setTimeout(function () {
                     window.clearTimeout(handler);
                     $captcha.sliderCaptcha('reset');
