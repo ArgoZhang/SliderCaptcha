@@ -6,6 +6,10 @@
 
 用户通过拖动滑块行为来完成校验，支持PC端及移动端。可以将用户拖动行为的时间、精度，滑动轨迹等信息到服务器，然后进行后台算法验证。
 
+##  **特别介绍** 
+
+ **Blazor 版本的滑块验证码**  [传送门](http://blazor.sdgxgz.com/captchas)
+
 ## 在线演示
 单页面演示：http://longbowenterprise.gitee.io/slidercaptcha/  
 项目内演示：http://ba.sdgxgz.com/ (本项目为开源后台管理框架 [[BootstrapAdmin](https://gitee.com/LongbowEnterprise/BootstrapAdmin)])  

@@ -6,6 +6,10 @@
 
 The user completes the verification by dragging the slider to support the PC and mobile terminals. The time, accuracy and sliding trajectory information of user dragging behavior can be sent to the server, and then the background algorithm verification can be carried out.
 
+## Blazor Version
+
+http://blazor.sdgxgz.com/captchas
+
 ## Online Demonstration
 Single page presentation: http://longbowenterprise.gitee.io/slidercaptcha/  
 In-Project Demonstration: https://argo.zylweb.cn/ (Open source Admin Control Pannel [[BootstrapAdmin](https://github.com/ArgoZhang/BootstrapAdmin)])  
