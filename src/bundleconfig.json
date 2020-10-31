@@ -1,0 +1,19 @@
+﻿[
+  {
+    "outputFileName": "disk/slidercaptcha.min.css",
+    "inputFiles": [
+      "disk/!(*.min).css"
+    ]
+  },
+  {
+    "outputFileName": "disk/longbow.slidercaptcha.min.js",
+    "inputFiles": [
+      "disk/longbow.slidercaptcha.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": true
+  }
+]

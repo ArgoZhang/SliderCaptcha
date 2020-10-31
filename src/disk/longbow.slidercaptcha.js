@@ -1,10 +1,38 @@
-﻿(function ($) {
+﻿(function () {
     'use strict';
 
+    var extend = function () {
+        var length = arguments.length;
+        var target = arguments[0] || {};
+        if (typeof target != "object" && typeof target != "function") {
+            target = {};
+        }
+        if (length == 1) {
+            target = this;
+            i--;
+        }
+        for (var i = 1; i < length; i++) {
+            var source = arguments[i];
+            for (var key in source) {
+                // 使用for in会遍历数组所有的可枚举属性，包括原型。
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+        return target;
+    }
+
+    var isFunction = function isFunction(obj) {
+        return typeof obj === "function" && typeof obj.nodeType !== "number";
+    };
+
     var SliderCaptcha = function (element, options) {
-        this.$element = $(element);
-        this.options = $.extend({}, SliderCaptcha.DEFAULTS, options);
-        this.$element.css({ 'position': 'relative', 'width': this.options.width + 'px', 'margin': '0 auto' });
+        this.$element = element;
+        this.options = extend({}, SliderCaptcha.DEFAULTS, options);
+        this.$element.style.position = 'relative';
+        this.$element.style.width = this.options.width + 'px';
+        this.$element.style.margin = '0 auto';
         this.init();
     };
 
@@ -27,17 +55,15 @@
         },
         verify: function (arr, url) {
             var ret = false;
-            $.ajax({
-                url: url,
-                data: JSON.stringify(arr),
-                async: false,
-                cache: false,
-                type: 'POST',
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function (result) {
-                    ret = result;
-                }
+            fetch(url, {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(arr)
+            }).then(function (result) {
+                ret = result;
             });
             return ret;
         },
@@ -45,19 +71,13 @@
     };
 
     function Plugin(option) {
-        return this.each(function () {
-            var $this = $(this);
-            var data = $this.data('lgb.SliderCaptcha');
-            var options = typeof option === 'object' && option;
-
-            if (data && !/reset/.test(option)) return;
-            if (!data) $this.data('lgb.SliderCaptcha', data = new SliderCaptcha(this, options));
-            if (typeof option === 'string') data[option]();
-        });
+        var $this = document.getElementById(option.id);
+        var options = typeof option === 'object' && option;
+        return new SliderCaptcha($this, options);
     }
 
-    $.fn.sliderCaptcha = Plugin;
-    $.fn.sliderCaptcha.Constructor = SliderCaptcha;
+    window.sliderCaptcha = Plugin;
+    window.sliderCaptcha.Constructor = SliderCaptcha;
 
     var _proto = SliderCaptcha.prototype;
     _proto.init = function () {
@@ -94,34 +114,34 @@
         text.innerHTML = this.options.barText;
 
         var el = this.$element;
-        el.append($(canvas));
-        el.append($(refreshIcon));
-        el.append($(block));
+        el.appendChild(canvas);
+        el.appendChild(refreshIcon);
+        el.appendChild(block);
         slider.appendChild(sliderIcon);
         sliderMask.appendChild(slider);
         sliderContainer.appendChild(sliderbg);
         sliderContainer.appendChild(sliderMask);
         sliderContainer.appendChild(text);
-        el.append($(sliderContainer));
+        el.appendChild(sliderContainer);
 
         var _canvas = {
             canvas: canvas,
             block: block,
-            sliderContainer: $(sliderContainer),
+            sliderContainer: sliderContainer,
             refreshIcon: refreshIcon,
             slider: slider,
             sliderMask: sliderMask,
             sliderIcon: sliderIcon,
-            text: $(text),
+            text: text,
             canvasCtx: canvas.getContext('2d'),
             blockCtx: block.getContext('2d')
         };
 
-        if ($.isFunction(Object.assign)) {
+        if (isFunction(Object.assign)) {
             Object.assign(this, _canvas);
         }
         else {
-            $.extend(this, _canvas);
+            extend(this, _canvas);
         }
     };
 
@@ -171,7 +191,7 @@
             var ImageData = that.blockCtx.getImageData(that.x - 3, y, L, L);
             that.block.width = L;
             that.blockCtx.putImageData(ImageData, 0, y + 1);
-            that.text.text(that.text.attr('data-text'));
+            that.text.textContent = that.text.getAttribute('data-text');
         };
         img.onerror = function () {
             loadCount++;
@@ -180,7 +200,8 @@
                 console.error("can't load pic resource file from File protocal. Please try http or https");
             }
             if (loadCount >= that.options.maxLoadCount) {
-                that.text.text('加载失败').addClass('text-danger');
+                that.text.textContent = '加载失败';
+                that.classList.add('text-danger');
                 return;
             }
             img.src = that.options.localImages();
@@ -188,8 +209,8 @@
         img.setSrc = function () {
             var src = '';
             loadCount = 0;
-            that.text.removeClass('text-danger');
-            if ($.isFunction(that.options.setSrc)) src = that.options.setSrc();
+            that.text.classList.remove('text-danger');
+            if (isFunction(that.options.setSrc)) src = that.options.setSrc();
             if (!src || src === '') src = 'https://picsum.photos/' + that.options.width + '/' + that.options.height + '/?image=' + Math.round(Math.random() * 20);
             if (isIE) { // IE浏览器无法通过img.crossOrigin跨域，使用ajax获取图片blob然后转为dataURL显示
                 var xhr = new XMLHttpRequest();
@@ -206,8 +227,8 @@
             } else img.src = src;
         };
         img.setSrc();
-        this.text.attr('data-text', this.options.barText);
-        this.text.text(this.options.loadingText);
+        this.text.setAttribute('data-text', this.options.barText);
+        this.text.textContent = this.options.loadingText;
         this.img = img;
     };
 
@@ -219,21 +240,21 @@
 
     _proto.bindEvents = function () {
         var that = this;
-        this.$element.on('selectstart', function () {
+        this.$element.addEventListener('selectstart', function () {
             return false;
         });
 
-        $(this.refreshIcon).on('click', function () {
+        this.refreshIcon.addEventListener('click', function () {
             that.text.text(that.options.barText);
             that.reset();
-            if ($.isFunction(that.options.onRefresh)) that.options.onRefresh.call(that.$element);
+            if (isFunction(that.options.onRefresh)) that.options.onRefresh.call(that.$element);
         });
 
         var originX, originY, trail = [],
             isMouseDown = false;
 
         var handleDragStart = function (e) {
-            if (that.text.hasClass('text-danger')) return;
+            if (that.text.classList.contains('text-danger')) return;
             originX = e.clientX || e.touches[0].clientX;
             originY = e.clientY || e.touches[0].clientY;
             isMouseDown = true;
@@ -250,7 +271,7 @@
             var blockLeft = (that.options.width - 40 - 20) / (that.options.width - 40) * moveX;
             that.block.style.left = blockLeft + 'px';
 
-            that.sliderContainer.addClass('sliderContainer_active');
+            that.sliderContainer.classList.add('sliderContainer_active');
             that.sliderMask.style.width = (moveX + 4) + 'px';
             trail.push(Math.round(moveY));
         };
@@ -260,15 +281,15 @@
             isMouseDown = false;
             var eventX = e.clientX || e.changedTouches[0].clientX;
             if (eventX === originX) return false;
-            that.sliderContainer.removeClass('sliderContainer_active');
+            that.sliderContainer.classList.remove('sliderContainer_active');
             that.trail = trail;
             var data = that.verify();
             if (data.spliced && data.verified) {
-                that.sliderContainer.addClass('sliderContainer_success');
-                if ($.isFunction(that.options.onSuccess)) that.options.onSuccess.call(that.$element);
+                that.sliderContainer.classList.add('sliderContainer_success');
+                if (isFunction(that.options.onSuccess)) that.options.onSuccess.call(that.$element);
             } else {
-                that.sliderContainer.addClass('sliderContainer_fail');
-                if ($.isFunction(that.options.onFail)) that.options.onFail.call(that.$element);
+                that.sliderContainer.classList.add('sliderContainer_fail');
+                if (isFunction(that.options.onFail)) that.options.onFail.call(that.$element);
                 setTimeout(function () {
                     that.text.text(that.options.failedText);
                     that.reset();
@@ -310,13 +331,14 @@
     };
 
     _proto.reset = function () {
-        this.sliderContainer.removeClass('sliderContainer_fail sliderContainer_success');
+        this.sliderContainer.classList.remove('sliderContainer_fail');
+        this.sliderContainer.classList.remove('sliderContainer_success');
         this.slider.style.left = 0;
         this.block.style.left = 0;
         this.sliderMask.style.width = 0;
         this.clean();
-        this.text.attr('data-text', this.text.text());
-        this.text.text(this.options.loadingText);
+        this.text.setAttribute('data-text', this.text.textContent);
+        this.text.textContent = this.options.loadingText;
         this.img.setSrc();
     };
-})(jQuery);
+})();

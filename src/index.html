@@ -6,9 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Slider Captcha Demo</title>
-    <link href="lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="disk/slidercaptcha.css" rel="stylesheet" />
+    <link href="disk/slidercaptcha.min.css" rel="stylesheet" />
     <style>
 
         .slidercaptcha {
@@ -55,11 +54,10 @@
             </div>
         </div>
     </div>
-    <script src="lib/jquery/jquery.min.js"></script>
-    <script src="lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="disk/longbow.slidercaptcha.js"></script>
+    <script src="disk/longbow.slidercaptcha.min.js"></script>
     <script>
-var $captcha = $('#captcha').sliderCaptcha({
+        var captcha = sliderCaptcha({
+            id: 'captcha',
             repeatIcon: 'fa fa-redo',
             setSrc: function () {
                 return 'http://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
@@ -67,7 +65,7 @@ var $captcha = $('#captcha').sliderCaptcha({
             onSuccess: function () {  //成功事件
                 var handler = setTimeout(function () {
                     window.clearTimeout(handler);
-                    $captcha.sliderCaptcha('reset');
+                    captcha.reset();
                 }, 500);
             }
         });</script>
