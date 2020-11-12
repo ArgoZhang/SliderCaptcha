@@ -22,12 +22,11 @@ In-Project Demonstration: https://argo.zylweb.cn/ (Open source Admin Control Pan
 ## Quick Start
 
 ### Dependencies 
-jQuery bootstrap font-awesome
+font-awesome
 
 ### CSS
 
 ```html
-<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 <link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css">
 <link href="./src/slidercaptcha.css">
 ```
@@ -36,7 +35,6 @@ Copy-paste the stylesheet `<link>` into your `<head>` before all other styleshee
 ### JS
 
 ```html
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="./src/longbow.slidercaptcha.js"></script>
 ```
 
