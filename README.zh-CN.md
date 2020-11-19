@@ -8,11 +8,11 @@
 
 ##  **特别介绍** 
 
- **Blazor 版本的滑块验证码**  [传送门](http://blazor.sdgxgz.com/captchas)
+ **Blazor 版本的滑块验证码**  [传送门](http://www.blazor.zone/captchas)
 
 ## 在线演示
 单页面演示：http://longbowenterprise.gitee.io/slidercaptcha/  
-项目内演示：http://ba.sdgxgz.com/ (本项目为开源后台管理框架 [[BootstrapAdmin](https://gitee.com/LongbowEnterprise/BootstrapAdmin)])  
+项目内演示：http://admin.blazor.zone/ (本项目为开源后台管理框架 [[BootstrapAdmin](https://gitee.com/LongbowEnterprise/BootstrapAdmin)])  
 **输入三次错误密码后第四次出现滑块式行为验证码**  
 
 ## 效果图
@@ -26,7 +26,6 @@
 ### CSS
 
 ```html
-<link href="https://cdn.bootcss.com/font-awesome/5.7.2/css/all.min.css">
 <link href="./src/slidercaptcha.css">
 ```
 将引入样式表的 &lt;link&gt; 标签复制并粘贴到 &lt;head&gt; 中，并放在所有其他样式表之前。
@@ -165,7 +164,7 @@ url | string | remoteUrl | 配置项中的 remoteUrl 参数值 |
 $('#captcha').sliderCaptcha({
     repeatIcon: 'fa fa-redo',
     setSrc: function () {
-        return 'https://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
+        return 'https://imgs.blazor.zone/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
     },
     onSuccess: function () {
         window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';

@@ -12,7 +12,7 @@ http://blazor.sdgxgz.com/captchas
 
 ## Online Demonstration
 Single page presentation: http://longbowenterprise.gitee.io/slidercaptcha/  
-In-Project Demonstration: https://argo.zylweb.cn/ (Open source Admin Control Pannel [[BootstrapAdmin](https://github.com/ArgoZhang/BootstrapAdmin)])  
+In-Project Demonstration: https://admin.blazor.zone/ (Open source Admin Control Pannel [[BootstrapAdmin](https://github.com/ArgoZhang/BootstrapAdmin)])  
 **Slide captcha appears for the fourth time after three times of incorrect password input**  
 
 ## Screenshot
@@ -158,7 +158,7 @@ sample code
 $('#captcha').sliderCaptcha({
     repeatIcon: 'fa fa-redo',
     setSrc: function () {
-        return 'https://imgs.sdgxgz.com/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
+        return 'https://imgs.blazor.zone/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
     },
     onSuccess: function () {
         window.location.href = 'https://gitee.com/LongbowEnterprise/SliderCaptcha';
