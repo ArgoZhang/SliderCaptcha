@@ -291,7 +291,7 @@
                 that.sliderContainer.classList.add('sliderContainer_fail');
                 if (isFunction(that.options.onFail)) that.options.onFail.call(that.$element);
                 setTimeout(function () {
-                    that.text.text(that.options.failedText);
+                    that.text.innerHTML = that.options.failedText;
                     that.reset();
                 }, 1000);
             }
