@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
 
     var extend = function () {
@@ -55,15 +55,18 @@
         },
         verify: function (arr, url) {
             var ret = false;
-            fetch(url, {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+            $.ajax({
+                url:url,
+                data:{
+                    "datas":JSON.stringify(arr),
                 },
-                body: JSON.stringify(arr)
-            }).then(function (result) {
-                ret = result;
+                dataType:"json",
+                type:"post",
+                async:false,
+                success:function(result){
+                    ret=JSON.stringify(result);
+                    console.log("返回结果："+ret)
+                }
             });
             return ret;
         },
