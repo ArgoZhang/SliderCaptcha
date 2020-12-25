@@ -53,7 +53,9 @@ Place the following `<script>`s near the end of your pages, right before the clo
 ```html
 <div id="captcha"></div>
 <script>
-    $('#captcha').sliderCaptcha();
+    sliderCaptcha({
+        id: 'captcha'
+    });
 </script>   
 ```
 
@@ -62,7 +64,8 @@ Place the following `<script>`s near the end of your pages, right before the clo
 ```html
 <div id="captcha"></div>
 <script>
-    $('#captcha').sliderCaptcha({
+    sliderCaptcha({
+        id: 'captcha',
         width: 280,
         height: 150,
         sliderL: 42,
@@ -110,14 +113,16 @@ localImages | function | function () { return 'images/Pic' + Math.round(Math.ran
 ```html
 <div id="captcha"></div>
 <script>
-    $('#captcha').sliderCaptcha();
-    $('#captcha').sliderCaptcha('reset');
+    var captcha = sliderCaptcha({
+        id: 'captcha'
+    });
+    captcha.reset();
 </script>   
 ```
 
 Method | Example | Description
 ---|---|---
-reset | $('#captcha').sliderCaptcha('reset') | reset
+reset | captcha.reset() | reset
 
 ## Events
 
@@ -155,7 +160,8 @@ url | string | remoteUrl | option.remoteUrl |
 
 sample code
 ```js
-$('#captcha').sliderCaptcha({
+sliderCaptcha({
+    id: 'captcha',
     repeatIcon: 'fa fa-redo',
     setSrc: function () {
         return 'https://imgs.blazor.zone/images/Pic' + Math.round(Math.random() * 136) + '.jpg';

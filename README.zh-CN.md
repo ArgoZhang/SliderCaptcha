@@ -53,7 +53,9 @@
 ```html
 <div id="captcha"></div>
 <script>
-    $('#captcha').sliderCaptcha();
+    sliderCaptcha({
+        id: 'captcha'
+    });
 </script>   
 ```
 
@@ -64,7 +66,8 @@
 ```html
 <div id="captcha"></div>
 <script>
-    $('#captcha').sliderCaptcha({
+    sliderCaptcha({
+        id: 'captcha',
         width: 280,
         height: 150,
         sliderL: 42,
@@ -114,14 +117,16 @@ verify	| function | function (arr, url) { return true; }	| 服务器端验证方
 ```html
 <div id="captcha"></div>
 <script>
-    $('#captcha').sliderCaptcha();
-    $('#captcha').sliderCaptcha('reset');
+    var captcha = sliderCaptcha({
+        id: 'captcha'
+    });
+    captcha.reset();
 </script>   
 ```
 
 Method | Example | Description
 ---|---|---
-reset | $('#captcha').sliderCaptcha('reset') | 重置控件
+reset | captcha.reset() | 重置控件
 
 ## 事件
 无
@@ -161,7 +166,8 @@ url | string | remoteUrl | 配置项中的 remoteUrl 参数值 |
 
 完整示例代码  
 ```js
-$('#captcha').sliderCaptcha({
+sliderCaptcha({
+    id: 'captcha',
     repeatIcon: 'fa fa-redo',
     setSrc: function () {
         return 'https://imgs.blazor.zone/images/Pic' + Math.round(Math.random() * 136) + '.jpg';
