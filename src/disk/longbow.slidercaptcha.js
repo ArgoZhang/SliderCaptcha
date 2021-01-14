@@ -248,7 +248,7 @@
         });
 
         this.refreshIcon.addEventListener('click', function () {
-            that.text.text(that.options.barText);
+            that.text.textContent = that.options.barText;
             that.reset();
             if (isFunction(that.options.onRefresh)) that.options.onRefresh.call(that.$element);
         });
