@@ -56,16 +56,16 @@
         verify: function (arr, url) {
             var ret = false;
             $.ajax({
-                url:url,
-                data:{
-                    "datas":JSON.stringify(arr),
+                url: url,
+                data: {
+                    "datas": JSON.stringify(arr),
                 },
-                dataType:"json",
-                type:"post",
-                async:false,
-                success:function(result){
-                    ret=JSON.stringify(result);
-                    console.log("返回结果："+ret)
+                dataType: "json",
+                type: "post",
+                async: false,
+                success: function (result) {
+                    ret = JSON.stringify(result);
+                    console.log("返回结果：" + ret)
                 }
             });
             return ret;
