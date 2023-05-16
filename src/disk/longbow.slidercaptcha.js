@@ -14,7 +14,7 @@
         for (var i = 1; i < length; i++) {
             var source = arguments[i];
             for (var key in source) {
-                // 使用for in会遍历数组所有的可枚举属性，包括原型。
+                // Using for in will traverse all enumerable properties of the array, including the prototype.
                 if (Object.prototype.hasOwnProperty.call(source, key)) {
                     target[key] = source[key];
                 }
@@ -39,15 +39,15 @@
     SliderCaptcha.VERSION = '1.0';
     SliderCaptcha.Author = 'argo@163.com';
     SliderCaptcha.DEFAULTS = {
-        width: 280,     // canvas宽度
-        height: 155,    // canvas高度
+        width: 280,     // canvas
+        height: 155,    // canvas
         PI: Math.PI,
-        sliderL: 42,    // 滑块边长
-        sliderR: 9,     // 滑块半径
-        offset: 5,      // 容错偏差
-        loadingText: '正在加载中...',
-        failedText: '再试一次',
-        barText: '向右滑动填充拼图',
+        sliderL: 42,    // Slider side length
+        sliderR: 9,     // Slider radius
+        offset: 5,      // Tolerance deviation
+        loadingText: 'Loading...',
+        failedText: 'Try again',
+        barText: 'Slide to the right to complete the puzzle',
         repeatIcon: 'fa fa-repeat',
         maxLoadCount: 3,
         localImages: function () {
@@ -65,7 +65,7 @@
                 async: false,
                 success: function (result) {
                     ret = JSON.stringify(result);
-                    console.log("返回结果：" + ret)
+                    console.log("Return result:" + ret)
                 }
             });
             return ret;
@@ -103,13 +103,13 @@
             return canvas;
         };
 
-        var canvas = createCanvas(this.options.width - 2, this.options.height); // 画布
-        var block = canvas.cloneNode(true); // 滑块
+        var canvas = createCanvas(this.options.width - 2, this.options.height); // Canvas
+        var block = canvas.cloneNode(true); // Slider
         var sliderContainer = createElement('div', 'sliderContainer');
         var refreshIcon = createElement('i', 'refreshIcon ' + this.options.repeatIcon);
         var sliderMask = createElement('div', 'sliderMask');
         var sliderbg = createElement('div', 'sliderbg');
-        var slider = createElement('div', 'slider');
+        var slider = createElement('div', 'sliderCaptcha');
         var sliderIcon = createElement('i', 'fa fa-arrow-right sliderIcon');
         var text = createElement('span', 'sliderText');
 
@@ -151,7 +151,7 @@
     _proto.initImg = function () {
         var that = this;
         var isIE = window.navigator.userAgent.indexOf('Trident') > -1;
-        var L = this.options.sliderL + this.options.sliderR * 2 + 3; // 滑块实际边长
+        var L = this.options.sliderL + this.options.sliderR * 2 + 3; // Actual side length of the slider
         var drawImg = function (ctx, operation) {
             var l = that.options.sliderL;
             var r = that.options.sliderR;
@@ -182,7 +182,7 @@
         img.crossOrigin = "Anonymous";
         var loadCount = 0;
         img.onload = function () {
-            // 随机创建滑块的位置
+            // Randomly create the position of the slider
             that.x = getRandomNumberByRange(L + 10, that.options.width - (L + 10));
             that.y = getRandomNumberByRange(10 + that.options.sliderR * 2, that.options.height - (L + 10));
             drawImg(that.canvasCtx, 'fill');
@@ -203,7 +203,7 @@
                 console.error("can't load pic resource file from File protocal. Please try http or https");
             }
             if (loadCount >= that.options.maxLoadCount) {
-                that.text.textContent = '加载失败';
+                that.text.textContent = 'Load failed';
                 that.classList.add('text-danger');
                 return;
             }
@@ -215,10 +215,10 @@
             that.text.classList.remove('text-danger');
             if (isFunction(that.options.setSrc)) src = that.options.setSrc();
             if (!src || src === '') src = 'https://picsum.photos/' + that.options.width + '/' + that.options.height + '/?image=' + Math.round(Math.random() * 20);
-            if (isIE) { // IE浏览器无法通过img.crossOrigin跨域，使用ajax获取图片blob然后转为dataURL显示
+            if (isIE) { // IE browser cannot cross-domain through img.crossOrigin, use ajax to get image blob then convert it to dataURL for display
                 var xhr = new XMLHttpRequest();
                 xhr.onloadend = function (e) {
-                    var file = new FileReader(); // FileReader仅支持IE10+
+                    var file = new FileReader(); // FileReader is only supported by IE10+
                     file.readAsDataURL(e.target.response);
                     file.onloadend = function (e) {
                         img.src = e.target.result;
@@ -302,6 +302,8 @@
 
         this.slider.addEventListener('mousedown', handleDragStart);
         this.slider.addEventListener('touchstart', handleDragStart);
+        this.block.addEventListener('mousedown', handleDragStart);
+        this.block.addEventListener('touchstart', handleDragStart);
         document.addEventListener('mousemove', handleDragMove);
         document.addEventListener('touchmove', handleDragMove);
         document.addEventListener('mouseup', handleDragEnd);
@@ -313,7 +315,7 @@
     };
 
     _proto.verify = function () {
-        var arr = this.trail; // 拖动时y轴的移动距离
+        var arr = this.trail; // Vertical distance of movement when dragging
         var left = parseInt(this.block.style.left);
         var verified = false;
         if (this.options.remoteUrl !== null) {
