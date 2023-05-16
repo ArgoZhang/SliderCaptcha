@@ -339,3 +339,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database 
 healthchecksdb
+
+#Apple 
+.DS_Store
+.vscode
